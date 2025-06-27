@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Calculadora de Nómina</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; max-width: 500px; margin: auto; }
+    label, select, input { display: block; margin: 10px 0; width: 100%; }
+    button { padding: 10px; background: #4CAF50; color: white; border: none; cursor: pointer; }
+    button:hover { background: #45a049; }
+    #resultado { margin-top: 20px; font-weight: bold; }
+  </style>
+</head>
+<body>
+  <h1>Calculadora de Nómina</h1>
+
+  <label for="base">Selecciona base salarial:</label>
+  <select id="base">
+    <option value="1000">12 </option>
+    <option value="591.708">16 </option>
+    <option value="739.52">20 </option>
+    <option value="887.48">24 </option>
+    <option value="2000">39 </option>
+  </select>
+
+  <label for="horasComp">Número de horas complementarias:</label>
+  <input type="number" id="horasComp" placeholder="Introduce horas complementarias" />
+
+  <label for="horasFest">Número de horas festivas:</label>
+  <input type="number" id="horasFest" placeholder="Introduce horas festivas" />
+
+  <label for="horasNoct">Número de horas nocturnas:</label>
+  <input type="number" id="horasNoct" placeholder="Introduce horas nocturnas" />
+
+  <label for="ss">Seguridad Social (%):</label>
+  <input type="number" id="ss" placeholder="Ejemplo: 6.35" />
+
+  <label for="irpf">IRPF (%):</label>
+  <input type="number" id="irpf" placeholder="Ejemplo: 12" />
+
+  <button onclick="calcularNomina()">Calcular Nómina</button>
+
+  <div id="resultado"></div>
+
+  <script>
+    function calcularNomina() {
+      const base = parseFloat(document.getElementById("base").value);
+      const horasComp = parseFloat(document.getElementById("horasComp").value) || 0;
+      const horasFest = parseFloat(document.getElementById("horasFest").value) || 0;
+      const horasNoct = parseFloat(document.getElementById("horasNoct").value) || 0;
+      const ss = parseFloat(document.getElementById("ss").value) || 0;
+      const irpf = parseFloat(document.getElementById("irpf").value) || 0;
+      const valorHoraComp = 9.82; 
+      const valorHoraFest = 10.75; 
+      const valorHoraNoct = 2;
+
+      const bruto = base + (horasComp * valorHoraComp) + (horasFest * valorHoraFest) + (horasNoct * valorHoraNoct);
+      const neto = bruto * (1 - (ss + irpf)/100);
+
+      document.getElementById("resultado").innerHTML = `
+        Salario bruto: ${bruto.toFixed(2)} €<br>
+        Salario neto: ${neto.toFixed(2)} €
+      `;
+    }
+  </script>
+
+</body>
+</html>
