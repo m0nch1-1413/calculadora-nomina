@@ -13,7 +13,8 @@
   </style>
 </head>
 <body>
-  <h1>Calculadora de Nómina</h1>
+  <h1>Calculadora de la dolorosa🫠
+  </h1>
 
   <label for="base">Selecciona base salarial:</label>
   <select id="base">
@@ -33,9 +34,13 @@
   <label for="horasNoct">Número de horas nocturnas:</label>
   <input type="number" id="horasNoct" placeholder="Introduce horas nocturnas" />
 
-  <label for="ss">Seguridad Social (%):</label>
-  <input type="number" id="ss" placeholder="Ejemplo: 6.35" />
+  <label for="ssSelect">Seguridad Social (%):</label>
+<select id="ssSelect" onchange="mostrarPersonalizado()">
+  <option value="6.48">6.48 %</option>
+  <option value="personalizado">Personalizado</option>
+</select>
 
+<input type="number" id="ssPersonalizado" placeholder="Introduce % personalizado" style="display:none;" />
   <label for="irpf">IRPF (%):</label>
   <input type="number" id="irpf" placeholder="Ejemplo: 12" />
 
@@ -44,12 +49,20 @@
   <div id="resultado"></div>
 
   <script>
+    
     function calcularNomina() {
       const base = parseFloat(document.getElementById("base").value);
       const horasComp = parseFloat(document.getElementById("horasComp").value) || 0;
       const horasFest = parseFloat(document.getElementById("horasFest").value) || 0;
       const horasNoct = parseFloat(document.getElementById("horasNoct").value) || 0;
-      const ss = parseFloat(document.getElementById("ss").value) || 0;
+      let ssSelect = document.getElementById("ssSelect").value;
+let ss;
+
+if (ssSelect === "personalizado") {
+  ss = parseFloat(document.getElementById("ssPersonalizado").value) || 0;
+} else {
+  ss = parseFloat(ssSelect);
+}
       const irpf = parseFloat(document.getElementById("irpf").value) || 0;
       const valorHoraComp = 9.82; 
       const valorHoraFest = 10.75; 
@@ -63,6 +76,16 @@
         Salario neto: ${neto.toFixed(2)} €
       `;
     }
+    function mostrarPersonalizado() {
+  const ssSelect = document.getElementById("ssSelect").value;
+  const ssPersonalizado = document.getElementById("ssPersonalizado");
+  
+  if (ssSelect === "personalizado") {
+    ssPersonalizado.style.display = "block";
+  } else {
+    ssPersonalizado.style.display = "none";
+  }
+}
   </script>
 
 </body>
